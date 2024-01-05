@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
+import 'package:lactgo_dashbard/all_sellers.dart';
+import 'package:lactgo_dashbard/all_users.dart';
 import 'package:lactgo_dashbard/login.dart';
 
 class DDashboard extends StatefulWidget {
@@ -131,6 +133,54 @@ class _DDashboardState extends State<DDashboard> {
                     onTap: () {
                       // Navigate to the dashboard
                       Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.shopping_bag_rounded),
+                        SizedBox(width: 10),
+                        Text('Products'),
+                      ],
+                    ),
+                    onTap: () {
+                      // Navigate to the dashboard
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DDashboard()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.person),
+                        SizedBox(width: 10),
+                        Text('Sellers'),
+                      ],
+                    ),
+                    onTap: () {
+                      // Navigate to the dashboard
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Seller()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.person),
+                        SizedBox(width: 10),
+                        Text('Users'),
+                      ],
+                    ),
+                    onTap: () {
+                      // Navigate to the dashboard
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Users()),
+                      );
                     },
                   ),
                   ListTile(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -199,10 +200,28 @@ class _LoginPageState extends State<LoginPage> {
           password: _passwordController.text,
         );
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DDashboard()),
-        );
+        String? currentUserId = _auth.currentUser?.uid;
+// Check if the user ID exists in the "admin" collection
+        DocumentSnapshot adminSnapshot = await FirebaseFirestore.instance
+            .collection('admin')
+            .doc(currentUserId)
+            .get();
+
+        if (adminSnapshot.exists) {
+          // User is an admin, navigate to dashboard
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DDashboard()),
+          );
+        } else {
+          // User is not an admin
+          _showErrorSnackbar('You are not an admin.');
+
+          // Log out the current logged-in user
+          await _auth.signOut();
+        }
+
+
 
       } catch (e) {
         _showErrorSnackbar(e.toString());
